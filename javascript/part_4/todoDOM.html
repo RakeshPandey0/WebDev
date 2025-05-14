@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Todo.css" />
+    <title>To-Do</title>
+  </head>
+  <body>
+    <header>
+      <h1>TODO List</h1>
+    </header>
+
+    <main>
+      <section id="todo">
+        <h2>Tasks:<span id="count"></span></h2>
+
+        <label for="taskInput">Enter new task:</label>
+        <input type="text" class="taskInput" id="taskInput" />
+        <button type="submit" id="add/edit">Add Task</button>
+        <p id="error"></p>
+        <ul id="taskList"></ul>
+      </section>
+    </main>
+
+    <script src="3.DOM_exercise_todo.js"></script>
+  </body>
+</html>
