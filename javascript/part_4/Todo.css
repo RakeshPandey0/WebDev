@@ -103,10 +103,9 @@ button[type="submit"]:hover {
   border-radius: 6px;
   margin-top: 15px;
   font-weight: 500;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   transition: all 0.3s ease-in-out;
 }
-
 
 /* Responsive tweaks */
 @media (max-width: 600px) {
@@ -174,4 +173,41 @@ button.delete {
 button.delete:hover {
   background-color: #c0392b;
   transform: scale(1.05);
+}
+
+.sort {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #557ead;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sort:hover {
+  background-color: #357abd;
+}
+
+.sort:active {
+  transform: scale(0.97);
+  background-color: #2c6fb6;
+}
+
+.sort-az {
+  background-color: #28a745; /* Green */
+}
+.sort-az:hover {
+  background-color: #218838;
+}
+
+.sort-za {
+  background-color: #dc3545; /* Red */
+}
+.sort-za:hover {
+  background-color: #c82333;
 }

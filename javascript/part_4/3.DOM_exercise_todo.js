@@ -3,15 +3,13 @@ let taskIndex = null;
 let taskCount = null;
 
 let tasks = localStorage.getItem("tasks");
-tasks = tasks?tasks.split(","):[];
+tasks = tasks ? tasks.split(",") : [];
 const errorText = document.getElementById("error");
 const taskList = document.querySelector("ul");
 const addEditButton = document.getElementById("addEdit");
 const taskInput = document.getElementById("taskInput");
-
 //display tasks
 function placeTasks() {
-  tasks.sort();
   taskCount = tasks.length;
   document.getElementById("count").textContent = taskCount;
   taskList.innerHTML = tasks
@@ -45,7 +43,7 @@ document.addEventListener("click", (e) => {
         addEdit = true;
       }
       taskInput.value = "";
-      localStorage.setItem("tasks", tasks);
+      // localStorage.setItem("tasks", tasks);
     }
   }
 
@@ -53,7 +51,7 @@ document.addEventListener("click", (e) => {
   if (e.target.matches("button.delete")) {
     const li = e.target.closest("li");
     tasks.splice(li.id, 1);
-    localStorage.setItem("tasks", tasks);
+    // localStorage.setItem("tasks", tasks);
   }
   //editing tasks
   if (e.target.matches("button.edit")) {
@@ -63,6 +61,17 @@ document.addEventListener("click", (e) => {
     addEditButton.textContent = "Edit Task";
     addEdit = false;
   }
+
+  if (e.target.matches("button.sort")) {
+    const order = e.target.textContent;
+    if (order === "A-Z") {
+      tasks.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+    } else {
+      tasks.sort((a, b) => b.toLowerCase().localeCompare(a.toLowerCase()));
+    }
+  }
+
+  localStorage.setItem("tasks", tasks);
 
   placeTasks();
 });
