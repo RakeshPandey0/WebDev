@@ -2,20 +2,22 @@ let addEdit = true;
 let taskIndex = null;
 let taskCount = null;
 
-let tasks = localStorage.getItem("tasks");
-tasks = tasks ? tasks.split(",") : [];
+// let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
 const errorText = document.getElementById("error");
 const taskList = document.querySelector("ul");
 const addEditButton = document.getElementById("addEdit");
 const taskInput = document.getElementById("taskInput");
 //display tasks
 function placeTasks() {
+  console.log(tasks);
   taskCount = tasks.length;
   document.getElementById("count").textContent = taskCount;
   taskList.innerHTML = tasks
     .map((task, index) => {
       return `
-    <li class="task-item" id="${index}">
+    <li class="task-item" data-index="${index}">
       ${task}
       <button class="delete">Delete</button>
       <button class="edit">Edit</button>
@@ -38,6 +40,7 @@ document.addEventListener("click", (e) => {
       if (addEdit) {
         tasks.push(taskInput.value);
       } else {
+        console.log("hello");
         tasks[taskIndex] = taskInput.value;
         addEditButton.textContent = "Add Task";
         addEdit = true;
@@ -55,8 +58,8 @@ document.addEventListener("click", (e) => {
   }
   //editing tasks
   if (e.target.matches("button.edit")) {
-    const li = e.target.closest("li");
-    taskIndex = li.id;
+    taskIndex = e.target.closest("li").dataset.index;
+    console.log(taskIndex);
     taskInput.value = tasks[taskIndex];
     addEditButton.textContent = "Edit Task";
     addEdit = false;
@@ -71,7 +74,7 @@ document.addEventListener("click", (e) => {
     }
   }
 
-  localStorage.setItem("tasks", tasks);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 
   placeTasks();
 });
