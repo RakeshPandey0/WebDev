@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>To-Do List</title>
   </head>
   <body>
@@ -11,41 +12,67 @@
     </header>
 
     <main>
-      <section>
-        <h2>Add Items</h2>
-        <form action="/addEdit" method="post">
-          <label for="newItem">New Item:</label>
+      <!-- Search Section -->
+      <section id="search">
+        <form action="/search" method="get" aria-label="Search tasks">
+          <label for="searchInput">Search:</label>
+          <input
+            type="text"
+            id="searchInput"
+            name="q"
+            placeholder="Search..."
+            value="<%= query %>"
+          />
+          <button type="submit">Search</button>
+        </form>
+      </section>
+
+      <!-- Add/Edit Task Section -->
+      <section id="addEdit">
+        <h2><%= value ? 'Edit Task' : 'Add Task' %></h2>
+        <form action="/addEdit" method="post" aria-label="Add or edit task">
+          <label for="newItem">Task:</label>
           <input
             type="text"
             name="newItem"
             id="newItem"
-            placeholder="Item"
-            value= "<%= value %>" 
-            required/>
-          <button type="submit"><%= value? 'Edit task' : 'Add task' %></button>
+            placeholder="Enter a task..."
+            value="<%= value %>"
+            required
+          />
+          <button type="submit"><%= value ? 'Edit Task' : 'Add Task' %></button>
         </form>
       </section>
 
-      <section>
+      <!-- Todo List Section -->
+      <section id="todo-list">
         <h2>Todo Items</h2>
         <ul>
-          <%todoItems.forEach((item, index)=>{ %>
-          <li>
-            <div id=<%= index %>>
-              <%= item %>
-              <form action="/delete" method="post" style="display: inline;">
-                <input type="hidden" name="index" value=<%=index %>>
-                  <button type="submit" class="delete">Delete</button>
-              </form>
-              <form action="/edit" method="post" style="display: inline;">
-                <input type="hidden" name="index" value=<%=index %>>
-                <button type="submit" class="edit">Edit</button>
-              </form>
-            </div>
-          </li>
-          <%})%>
+          <% todoItems.forEach((item, index) => { %>
+            <li>
+              <article class="todo-item" id="task-<%= index %>">
+                <span class="todo-text"><%= item %></span>
+
+                <div class="todo-actions">
+                  <form action="/delete" method="post">
+                    <input type="hidden" name="index" value="<%= index %>" />
+                    <button type="submit" class="delete" aria-label="Delete task <%= index + 1 %>">Delete</button>
+                  </form>
+
+                  <form action="/edit" method="post">
+                    <input type="hidden" name="index" value="<%= index %>" />
+                    <button type="submit" class="edit" aria-label="Edit task <%= index + 1 %>">Edit</button>
+                  </form>
+                </div>
+              </article>
+            </li>
+          <% }); %>
         </ul>
       </section>
     </main>
+
+    <footer>
+      <p>&copy; <%= new Date().getFullYear() %> ToDo App</p>
+    </footer>
   </body>
 </html>

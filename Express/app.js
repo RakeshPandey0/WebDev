@@ -15,7 +15,12 @@ let todoItems = [];
 let index = null;
 //Routes
 app.get("/", (req, res) => {
-  res.render("index", { todoItems: todoItems, value: todoItems[index] });
+  todoItems.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+  res.render("index", {
+    todoItems: todoItems,
+    value: todoItems[index],
+    query: null,
+  });
 });
 
 app.post("/edit", (req, res) => {
@@ -25,7 +30,7 @@ app.post("/edit", (req, res) => {
 
 app.post("/addEdit", (req, res) => {
   if (index) {
-    todoItems[index] = req.body.newItem
+    todoItems[index] = req.body.newItem;
   } else {
     let newItem = req.body.newItem;
     if (newItem) {
@@ -40,6 +45,14 @@ app.post("/delete", (req, res) => {
   let index = req.body.index;
   todoItems.splice(index, 1);
   res.redirect("/");
+});
+
+app.get("/search", (req, res) => {
+  const query = req.query.q?.toLowerCase() || "";
+  const results = todoItems.filter((item) =>
+    item.toLowerCase().includes(query)
+  );
+  res.render("index", { todoItems: results, value: null, query: query });
 });
 
 app.listen(3000, () => {

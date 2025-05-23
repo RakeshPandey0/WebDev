@@ -11,7 +11,6 @@ const addEditButton = document.getElementById("addEdit");
 const taskInput = document.getElementById("taskInput");
 //display tasks
 function placeTasks() {
-  console.log(tasks);
   taskCount = tasks.length;
   document.getElementById("count").textContent = taskCount;
   taskList.innerHTML = tasks
