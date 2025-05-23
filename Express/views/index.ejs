@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+  </head>
+  <body>
+    <header>
+      <h1>ToDo List</h1>
+    </header>
+
+    <main>
+      <section>
+        <h2>Add Items</h2>
+        <form action="/addEdit" method="post">
+          <label for="newItem">New Item:</label>
+          <input
+            type="text"
+            name="newItem"
+            id="newItem"
+            placeholder="Item"
+            value= "<%= value %>" 
+            required/>
+          <button type="submit"><%= value? 'Edit task' : 'Add task' %></button>
+        </form>
+      </section>
+
+      <section>
+        <h2>Todo Items</h2>
+        <ul>
+          <%todoItems.forEach((item, index)=>{ %>
+          <li>
+            <div id=<%= index %>>
+              <%= item %>
+              <form action="/delete" method="post" style="display: inline;">
+                <input type="hidden" name="index" value=<%=index %>>
+                  <button type="submit" class="delete">Delete</button>
+              </form>
+              <form action="/edit" method="post" style="display: inline;">
+                <input type="hidden" name="index" value=<%=index %>>
+                <button type="submit" class="edit">Edit</button>
+              </form>
+            </div>
+          </li>
+          <%})%>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
