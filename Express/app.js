@@ -29,7 +29,7 @@ app.post("/edit", (req, res) => {
 });
 
 app.post("/addEdit", (req, res) => {
-  if (index) {
+  if (index !== null) {
     todoItems[index] = req.body.newItem;
   } else {
     let newItem = req.body.newItem;
