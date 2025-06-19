@@ -1,12 +1,13 @@
 const express = require("express");
 const fs = require("fs");
 const users = require("./MOCK_DATA.json");
+const log = require("./middleware/log.middleware")
 const app = express();
 const PORT = 8000;
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
-
+app.use((req, res, next)=> log(req, res, next));
 app.get("/api/users", (req, res) => {
   return res.json(users);
 });
