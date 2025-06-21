@@ -10,7 +10,8 @@ async function generateShortUrl(req, res) {
     redirectURL: body.url,
     visitHistory: [],
   });
-  return res.status(201).json({ id: shortId });
+  return res.render("home", { id: shortId });
+  // return res.status(201).json({ id: shortId });
 }
 
 async function getAnalytics(req, res) {
@@ -22,4 +23,13 @@ async function getAnalytics(req, res) {
     analytics: result.visitHistory,
   });
 }
-module.exports = { generateShortUrl, getAnalytics };
+async function redirectURL(req, res) {
+  const shortId = req.params.shortId;
+  const entry = await URL.findOneAndUpdate(
+    { shortId },
+    { $push: { visitHistory: { timestamp: Date.now() } } }
+  );
+  res.redirect(entry.redirectURL);
+}
+
+module.exports = { generateShortUrl, getAnalytics, redirectURL };
