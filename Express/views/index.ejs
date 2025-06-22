@@ -14,60 +14,94 @@
     <main>
       <!-- Search Section -->
       <section id="search">
-        <form action="/search" method="get" aria-label="Search tasks">
+        <form action="/search/" method="get" aria-label="Search tasks">
           <label for="searchInput">Search:</label>
           <input
             type="text"
             id="searchInput"
             name="q"
             placeholder="Search..."
-            value="<%= query %>"
           />
           <button type="submit">Search</button>
         </form>
       </section>
 
       <!-- Add/Edit Task Section -->
-      <section id="addEdit">
-        <h2><%= value ? 'Edit Task' : 'Add Task' %></h2>
-        <form action="/addEdit" method="post" aria-label="Add or edit task">
+      <% if (!locals.value) { %>
+      <section id="add">
+        <h2>Add Task</h2>
+        <form action="/" method="post" aria-label="Add or edit task">
           <label for="newItem">Task:</label>
           <input
             type="text"
-            name="newItem"
+            name="newTask"
             id="newItem"
             placeholder="Enter a task..."
-            value="<%= value %>"
             required
           />
-          <button type="submit"><%= value ? 'Edit Task' : 'Add Task' %></button>
+          <button type="submit">Add Task</button>
         </form>
       </section>
+      <% } else { %>
 
+      <section id="edit">
+        <h2>Edit Task</h2>
+        <form
+          action="/update/<%= id %>"
+          method="post"
+          aria-label="Add or edit task"
+        >
+          <label for="newItem">Task:</label>
+          <input
+            type="text"
+            name="updatedTask"
+            id="newItem"
+            value="<%= value %>"
+            placeholder="Enter a task..."
+            required
+          />
+          <button type="submit">Edit Task</button>
+        </form>
+      </section>
+      <% } %>
       <!-- Todo List Section -->
       <section id="todo-list">
+        <% if (locals.todoItems) { %>
         <h2>Todo Items</h2>
         <ul>
           <% todoItems.forEach((item, index) => { %>
-            <li>
-              <article class="todo-item" id="task-<%= index %>">
-                <span class="todo-text"><%= item %></span>
+          <li>
+            <article class="todo-item" id="<%= item._id %>">
+              <span class="todo-text"><%= item.task %></span>
 
-                <div class="todo-actions">
-                  <form action="/delete" method="post">
-                    <input type="hidden" name="index" value="<%= index %>" />
-                    <button type="submit" class="delete" aria-label="Delete task <%= index + 1 %>">Delete</button>
-                  </form>
+              <div class="todo-actions">
+                <form action="/delete" method="post">
+                  <input type="hidden" name="id" value="<%= item._id %>" />
+                  <button
+                    type="submit"
+                    class="delete"
+                    aria-label="Delete task <%= index + 1 %>"
+                  >
+                    Delete
+                  </button>
+                </form>
 
-                  <form action="/edit" method="post">
-                    <input type="hidden" name="index" value="<%= index %>" />
-                    <button type="submit" class="edit" aria-label="Edit task <%= index + 1 %>">Edit</button>
-                  </form>
-                </div>
-              </article>
-            </li>
+                <form action="/edit" method="get">
+                  <input type="hidden" name="id" value="<%= item._id %>" />
+                  <button
+                    type="submit"
+                    class="edit"
+                    aria-label="Edit task <%= index + 1 %>"
+                  >
+                    Edit
+                  </button>
+                </form>
+              </div>
+            </article>
+          </li>
           <% }); %>
         </ul>
+        <% } %>
       </section>
     </main>
 
