@@ -9,6 +9,7 @@ async function generateShortUrl(req, res) {
     shortId: shortId,
     redirectURL: body.url,
     visitHistory: [],
+    createdBy: req.user._id,
   });
   return res.render("home", { id: shortId });
   // return res.status(201).json({ id: shortId });
@@ -29,7 +30,8 @@ async function redirectURL(req, res) {
     { shortId },
     { $push: { visitHistory: { timestamp: Date.now() } } }
   );
-  res.redirect(entry.redirectURL);
+  const redirectURL = entry.redirectURL;
+  res.redirect(redirectURL);
 }
 
 module.exports = { generateShortUrl, getAnalytics, redirectURL };

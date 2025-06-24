@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp</title>
+  </head>
+  <body>
+    <!-- header -->
+    <header>
+      <h1>URL Shortner</h1>
+    </header>
+
+    <main>
+      <section>
+        <h2>Login Form</h2>
+
+        <form action="/user/login" method="post">
+          <fieldset>
+            <legend>Set Credentials</legend>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required /><br /><br />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+          </fieldset>
+          <br />
+          <button type="submit">Login</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
