@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style>
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
@@ -25,7 +21,7 @@
       </div>
     </nav> -->
 
-    <main>
+    <main class="page-home">
       <section id="urlForm">
         <h2>Shorten URL</h2>
         <form method="post" action="/url">
@@ -41,8 +37,8 @@
         </form>
       </section>
       <section id="generatedUrl">
-        <% if (locals.id) { %>
-        <p>URL Generated: http://localhost:8001/url/<%= id %></p>
+        <% if (locals.shortUrl) { %>
+        <p>URL Generated: <%= shortUrl %></p>
         <% } %>
       </section>
 
