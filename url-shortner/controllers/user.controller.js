@@ -1,24 +1,32 @@
 const User = require("../models/User");
-const { v4: uuidv4 } = require("uuid");
 const { setUser } = require("../service/auth");
+const bcrypt = require("bcryptjs");
 
 async function handleUserSignUp(req, res) {
   const { name, email, password } = req.body;
-  await User.create({ name, email, password });
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(password, salt);
+  await User.create({ name, email, password: hashedPassword });
   return res.redirect("/login");
 }
 
 async function handleUserLogin(req, res) {
   const { email, password } = req.body;
-  const user = await User.findOne({ email, password });
+  const user = await User.findOne({ email });
   if (!user)
     return res.redirect("/login", {
-      error: "Invalid username or password",
+      error: "no user found",
     });
-  
-  const token = setUser(user);
-  res.cookie("uid", token);
-  return res.redirect("/");
+  const match = bcrypt.compare(password, user.password);
+  if (match) {
+    const token = setUser(user);
+    res.cookie("uid", token);
+    return res.redirect("/");
+  } else {
+    return res.redirect("/login", {
+      error: "invalid password",
+    });
+  }
 }
 
 module.exports = { handleUserSignUp, handleUserLogin };
