@@ -21,6 +21,7 @@ Whether you're a beginner looking to understand the core principles or an experi
   - [React API Practice](#react-api-practice)
   - [React Context API](#react-context-api)
   - [React Redux Toolkit](#react-redux-toolkit)
+  - [React Redux API calling](#react-redux-api-calling)
   - [React Tic-Tac-Toe Game](#react-tic-tac-toe-game)
 - [Miscellaneous Projects & Utilities](#miscellaneous-projects--utilities)
   - [API Practice](#api-practice)
@@ -110,6 +111,10 @@ Understanding and implementing state management with React's Context API.
 #### React Redux Toolkit (`react-redux-toolkit/`)
 
 Learning how to manage complex application state efficiently using Redux Toolkit.
+
+#### React Redux API Calling (`react-redux-api-calling/`)
+
+Learning how to manage API call using Redux Async Thunk.
 
 #### React Tic-Tac-Toe Game (`react-tic-tac-toe/`)
 
